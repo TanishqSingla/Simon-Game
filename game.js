@@ -7,5 +7,12 @@ function nextSequence() {
   var randomChosenColor = buttonColors[randomNum];
   gamePattern.push(randomChosenColor);
 
-  $(`#${gamePattern[0]}`).fadeOut(100).fadeIn(100);
+  $(`#${randomChosenColor}`).fadeOut(100).fadeIn(100);
+
+  var audio = new Audio(`sounds/${randomChosenColor}.mp3`);
+  audio.play();
 }
+
+$(`div[type='button']`).on("click", function () {
+  console.log("click");
+});
