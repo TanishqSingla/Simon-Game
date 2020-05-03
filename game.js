@@ -24,6 +24,7 @@ $(document).keypress(function () {
 
 //this function beeps random color, and stores the color in gamePattern
 function nextSequence() {
+  userClickedPattern = [];
   var randomNum = Math.floor(Math.random() * 4);
 
   var randomChosenColor = buttonColors[randomNum];
@@ -38,10 +39,26 @@ function nextSequence() {
   $("#level-title").text("Level " + level);
 }
 
-//playSound function plays sound when user clicks colour and when computer gives pattern
-function playSound(name) {
-  var audio = new Audio(`sounds/${name}.mp3`);
-  audio.play();
+//Check Answer
+function checkAnswer(currentLevel) {
+  if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+    console.log("success");
+    if (userClickedPattern.length === gamePattern.length) {
+      setTimeout(function () {
+        nextSequence();
+      }, 1000);
+    }
+  } else {
+    playSound("wrong");
+
+    $("body").addClass("game-over");
+    setTimeout(function () {
+      $("body").removeClass("game-over");
+    }, 200);
+
+    $("#level-title").text("Game Over, Press Any Key to Restart");
+    startOver();
+  }
 }
 
 //Handler when user clicks a color
@@ -52,12 +69,20 @@ $(`.btn`).on("click", function () {
 
   playSound(userChosenColor);
   animatePress($(this));
+
+  //Check the most recent answer
+  checkAnswer(userClickedPattern.length - 1);
 });
 
-//Animation stuff
+//Animation and sounds
 function animatePress(currentColor) {
   currentColor.addClass("pressed");
   setTimeout(function () {
     currentColor.removeClass("pressed");
   }, 100);
+}
+
+function playSound(name) {
+  var audio = new Audio(`sounds/${name}.mp3`);
+  audio.play();
 }
