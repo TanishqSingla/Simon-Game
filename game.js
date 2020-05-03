@@ -19,4 +19,7 @@ $(`.btn`).on("click", function () {
   var userChosenColor = $(this).attr("id");
 
   userClickedPattern.push(userChosenColor);
+
+  var _audio = new Audio(`sounds/${userChosenColor}.mp3`);
+  _audio.play();
 });
