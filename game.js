@@ -6,4 +6,6 @@ function nextSequence() {
 
   var randomChosenColor = buttonColors[randomNum];
   gamePattern.push(randomChosenColor);
+
+  $(`#${gamePattern[0]}`).fadeOut(100).fadeIn(100);
 }
