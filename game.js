@@ -61,6 +61,12 @@ function checkAnswer(currentLevel) {
   }
 }
 
+function startOver() {
+  level = 0;
+  gamePattern = [];
+  started = false;
+}
+
 //Handler when user clicks a color
 $(`.btn`).on("click", function () {
   var userChosenColor = $(this).attr("id");
